@@ -1,14 +1,6 @@
-# Flask KitchenSink
+# line bot app on Heroku
 
-Sample bot using [Flask](http://flask.pocoo.org/)
-
-## Getting started
-
-```
-$ export LINE_CHANNEL_SECRET=YOUR_LINE_CHANNEL_SECRET
-$ export LINE_CHANNEL_ACCESS_TOKEN=YOUR_LINE_CHANNEL_ACCESS_TOKEN
-
-$ pip install -r requirements.txt
-
-$ python app.py
-```
+Need to settings of Heroku Config Variables
+   LINE_CHANNEL_ACCESS_TOKEN
+   LINE_CHANNEL_SECRET
+Using heroku-postgresql (free plan)
