@@ -279,10 +279,10 @@ def handle_message(event):
         line_bot_api.reply_message(
                 event.reply_token, [
                     TextSendMessage(
-                        text='使い方を説明するね。みーとあっぷは、教えてもらったグループのスケジュール調整をするよ。ちょっぴりせっかちなので、フォローしたり締め切ったりします。まずは、グループを作るか友達からグループの呪文をおしえてもらってね。'
+                        text='使い方を説明するね。みーとあっぷは、教えてもらったグループのスケジュール調整をするよ。ちょっぴりせっかちなので、フォローしたり締め切ったりします。'
                     ),
                     TextSendMessage(
-                        text='呪文を唱えれば、グループに入ることができるよ。ただし大人の事情で、一人で入れるグループは5個まで。一つのグループの定員は150人までだから気をつけてね。'
+                        text='まずは、グループを作るか友達からグループの合い言葉をおしえてもらってね。合い言葉をつぶやくとグループに入ることができるよ。ただし大人の事情で、一人で入れるグループは5個まで。一つのグループの定員は150人までだから気をつけてね。'
                     ),
                     TextSendMessage(
                         text='予定を立てるとき、5個まで候補を決めれるよ。候補は、"月/日/時"で”,”で区切って教えてね。たとえば候補が3月8日9時と3月10日12時の2つだったら、'
@@ -318,10 +318,7 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token, [
                     TextSendMessage(
-                        text='作りたいグループ名を教えて！'
-                    )
-                ]
-            )
+                        text='作りたいグループ名を教えて！')])
 
             app.logger.info( profile.display_name+" :flag: 1")
             # user_idが未登録ならユーザー追加
@@ -381,12 +378,22 @@ def handle_message(event):
                     db.session.add(entry2)
                     db.session.commit()
 
+                    line_bot_api.reply_message(
+                        event.reply_token, [
+                        TextSendMessage(
+                        text=text+'っていうグループを作ったよ。'),
+                        TextSendMessage(
+                        text='次の合い言葉を友達に教えてね'),
+                        TextSendMessage(
+                        text='@addG+'+text+'+'+str(l_groups.g_id))])
+
+
                 #グループ名が重複
                 else:
                     line_bot_api.reply_message(
                         event.reply_token, [
                             TextSendMessage(
-                                text='もう登録されてるよ')])
+                                text='もう使われてるから、別のグループ名にしてね。')])
             else:
                 entry = User.query.filter(User.u_id == l_user_id).first()
                 entry.u_status = '0'
